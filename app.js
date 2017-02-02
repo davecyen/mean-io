@@ -44,7 +44,35 @@ function processModules (modules) {
   req.keys().map(req);
   req = require.context('./node_modules', true, /\/meanio-(.*)\/public\/(?!tests|assets|views)(.*)\.js$/);
   req.keys().map(req);
-  angular.module('mean', packageModules);
+  angular.module('mean', packageModules)
+  .config(function($mdThemingProvider) {
+    $mdThemingProvider.definePalette('roomblockerPalette', {
+    '50': 'e6e7e8',
+    '100': 'c0c2c5',
+    '200': '969a9f',
+    '300': '6c7279',
+    '400': '4d535c',
+    '500': '2d353f',
+    '600': '283039',
+    '700': '222831',
+    '800': '1c2229',
+    '900': '11161b',
+    'A100': 'c8aa76',
+    'A200': 'b69a68',
+    'A400': 'a18a60',
+    'A700': 'a18a60',
+    'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
+                                        // on this palette should be dark or light
+
+    'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+     '200', '300', '400'],
+    'contrastLightColors': undefined    // could also specify this if default was 'dark'
+  });
+
+  $mdThemingProvider.theme('default')
+    .primaryPalette('roomblockerPalette')
+    .accentPalette('roomblockerPalette')
+  });
 }
 
 jQuery.ajax('/_getModules', {
